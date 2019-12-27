@@ -16,7 +16,14 @@ const saveNotes = function(notes) {
 };
 
 const getNote = function() {
-  fs.readFileSync();
+  try {
+    const dataBuffer = fs.readFileSync("notes.json");
+    const dataString = dataBuffer.toString();
+    const dataJson = JSON.parse(dataString);
+    return dataJson;
+  } catch {
+    return [];
+  }
 };
 
 module.exports = {
