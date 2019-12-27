@@ -1,12 +1,21 @@
 const fs = require("fs");
+const chalk = require("chalk");
 
 const addNote = function(title, body) {
   const notes = getNote();
-  notes.push({
-    title: title,
-    body: body
+  const duplicate = notes.filter(function(note) {
+    return note.title === title;
   });
-  saveNotes(notes);
+
+  if (duplicate.length === 0) {
+    notes.push({
+      title: title,
+      body: body
+    });
+    saveNotes(notes);
+  } else {
+    console.log(chalk.bgRed("Title Already Exist"));
+  }
 };
 
 const saveNotes = function(notes) {
